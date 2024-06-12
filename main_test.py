@@ -22,17 +22,8 @@ if __name__ == '__main__':
         print("Loading pretrained model " + args.pretrained_ckpt)
         model.load_state_dict(torch.load(args.pretrained_ckpt))
     else:
-        if "shanghai" in args.dataset:
-            model.load_state_dict(torch.load('./ckpt/my_best/shanghai_v2-both-text_agg-add-1-1-extra_loss-595-i3d-best.pkl'))
-        elif "ped2" in args.dataset:
-            model.load_state_dict(torch.load('./ckpt/my_best/ped2-both-text_agg-add-1-1-extra_loss-755-4869-i3d.pkl'))
-        elif "violence" in args.dataset:
+        if "violence" in args.dataset:
             model.load_state_dict(torch.load('./ckpt/my_best/violence-both-text_agg-add-1-1-extra_loss-445-4869-BEST.pkl'))
-        elif "ucf" in args.dataset:
-            model.load_state_dict(torch.load('./ckpt/my_best/ucf-both-text_agg-concat-1-1-extra_loss-680-2333-BEST.pkl'))
-        elif "TE2" in args.dataset:  # ped2 model works better
-            model.load_state_dict(
-                torch.load('./ckpt/my_best/TE2-both-text_agg-concat-0.0001-extra_loss-645-4869-.pkl'))
         else:
             raise NotImplementedError
 
