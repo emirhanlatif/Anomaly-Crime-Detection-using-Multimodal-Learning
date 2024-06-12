@@ -36,41 +36,13 @@ class Dataset(data.Dataset):
     def _parse_list(self):
         self.list = list(open(self.rgb_list_file))
         if self.test_mode is False:  # list for training would need to be ordered from normal to abnormal
-            if 'shanghai' in self.dataset:
-                if self.is_normal:
-                    self.list = self.list[63:]
-                    print('normal list for shanghai tech')
-                else:
-                    self.list = self.list[:63]
-                    print('abnormal list for shanghai tech')
-            elif 'ucf' in self.dataset:
-                if self.is_normal:
-                    self.list = self.list[810:]
-                    print('normal list for ucf')
-                else:
-                    self.list = self.list[:810]
-                    print('abnormal list for ucf')
-            elif 'violence' in self.dataset:
+            if 'violence' in self.dataset:
                 if self.is_normal:
                     self.list = self.list[1904:]
                     print('normal list for violence')
                 else:
                     self.list = self.list[:1904]
                     print('abnormal list for violence')
-            elif 'ped2' in self.dataset:
-                if self.is_normal:
-                    self.list = self.list[6:]
-                    print('normal list for ped2', len(self.list))
-                else:
-                    self.list = self.list[:6]
-                    print('abnormal list for ped2', len(self.list))
-            elif 'TE2' in self.dataset:  # 注意index从0开始，而pycharm行号从1开始
-                if self.is_normal:
-                    self.list = self.list[23:]
-                    print('normal list for TE2', len(self.list))
-                else:
-                    self.list = self.list[:23]
-                    print('abnormal list for TE2', len(self.list))
             else:
                 raise Exception("Dataset undefined!!!")
 
@@ -87,25 +59,16 @@ class Dataset(data.Dataset):
         features = np.load(i3d_path, allow_pickle=True)
         features = np.array(features, dtype=np.float32)
 
-        if 'ucf' in self.dataset:
-            text_path = "save/Crime/" + self.emb_folder + "/" + i3d_path.split("/")[-1][:-7]+"emb.npy"
-        elif 'shanghai' in self.dataset:
-            text_path = "save/Shanghai/" + self.emb_folder + "/" + i3d_path.split("/")[-1][:-7]+"emb.npy"
-        elif 'violence' in self.dataset:
+        if 'violence' in self.dataset:
             text_path = "save/Violence/" + self.emb_folder + "/" + i3d_path.split("\\")[-1][:-8]+"_emb.npy"
-        elif 'ped2' in self.dataset:
-            text_path = "save/ped2/" + self.emb_folder + "/" + i3d_path.split("\\")[-1][:-7]+"emb.npy"
-        elif 'TE2' in self.dataset:
-            text_path = "save/TE2/" + self.emb_folder + "/" + i3d_path.split("/")[-1][:-7]+"emb.npy"
         else:
             raise Exception("Dataset undefined!!!")
         text_features = np.load(text_path, allow_pickle=True)
         text_features = np.array(text_features, dtype=np.float32)  # [snippet no., 768]
         # assert features.shape[0] == text_features.shape[0]
         if self.feature_size == 1024:
-            text_features = np.tile(text_features, (5, 1, 1))  # [10,snippet no.,768]
-        elif self.feature_size == 2048:
-            text_features = np.tile(text_features, (10, 1, 1))  # [10,snippet no.,768]
+            text_features = np.tile(text_features, (5, 1, 1))  # [5,snippet no.,768]
+
         else:
             raise Exception("Feature size undefined!!!")
         
