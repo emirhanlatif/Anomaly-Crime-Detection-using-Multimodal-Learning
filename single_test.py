@@ -137,8 +137,8 @@ if __name__ == '__main__':
     # text_features = abc(tek_video)
     #text_features = 'C:\\Users\\Emirhan\\Desktop\\tevad\\TEVAD\\save\\Violence\\sent_emb_n\\' + os.path.splitext(tek_video)[0] + '_emb.npy'
     text_features = 'C:\\Users\\Emirhan\\Desktop\\features\\text\\' + os.path.splitext(tek_video)[0] + '_emb.npy'
-    audio_features = 'C:\\Users\\Emirhan\\Desktop\\vggish-features\\train\\' + os.path.splitext(tek_video)[0] + '__vggish.npy'
-    #audio_features = 'C:\\Users\\Emirhan\\Desktop\\features\\audio\\' +tek_video + '.npy'
+    #audio_features = 'C:\\Users\\Emirhan\\Desktop\\vggish-features\\train\\' + os.path.splitext(tek_video)[0] + '__vggish.npy'
+    audio_features = 'C:\\Users\\Emirhan\\Desktop\\features\\audio\\' +tek_video + '.npy'
 
     test_loader = DataLoader(dataset(i3d_path,text_features, audio_features),
                               batch_size=1, shuffle=False,
